@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Environment
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Large data files
+data/title_raw/
+data/summary_raw/
+data/title_processed/
+data/summary_processed/
+data/multitask_processed/
+
+# Model outputs and checkpoints
+outputs/
+*.ckpt
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# HuggingFace / cache
+.cache/
+huggingface/
+transformers_cache/
+
+# System files
+.DS_Store
+
+# Logs
+logs/
+*.log
