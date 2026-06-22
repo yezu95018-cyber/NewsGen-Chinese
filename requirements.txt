@@ -11,3 +11,4 @@ numpy
 pandas
 tqdm
 protobuf==3.20.3
+gradio

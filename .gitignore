@@ -11,29 +11,30 @@ venv/
 env/
 *.egg-info/
 
+# System files
+.DS_Store
+
 # Large data files
 data/title_raw/
 data/summary_raw/
 data/title_processed/
 data/summary_processed/
 data/multitask_processed/
+data/user_history.json
+data/exports/
 
-# Model outputs and checkpoints
+# Model outputs, checkpoints, logs, and exports
 outputs/
+logs/
+exports/
 *.ckpt
-*.bin
-*.safetensors
 *.pt
 *.pth
+*.bin
+*.safetensors
+*.log
 
 # HuggingFace / cache
 .cache/
 huggingface/
 transformers_cache/
-
-# System files
-.DS_Store
-
-# Logs
-logs/
-*.log

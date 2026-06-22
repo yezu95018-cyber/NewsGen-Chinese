@@ -41,13 +41,30 @@ def load_model(ckpt_path, model_path):
     return light_model
 
 
+def clean_title_output(text, max_chars=18):
+    text = text.strip()
+
+    # 先按新闻标题常见断点截断，避免输出导语长句
+    for sep in ["。", "，", ",", "；", ";", "！", "？", "\n"]:
+        if sep in text:
+            text = text.split(sep)[0].strip()
+            break
+
+    # 去掉一些容易让标题变长的套话
+    remove_tails = ["的相关通知", "相关通知", "的相关方案", "相关方案", "的相关政策", "相关政策"]
+    for tail in remove_tails:
+        if text.endswith(tail):
+            text = text[:-len(tail)].strip()
+
+    return text[:max_chars].strip()
+
 def generate(light_model, task, text, beams=4):
     tokenizer = light_model.tokenizer
     model = light_model.model
 
     if task == "title":
         prompt = "生成标题："
-        max_target_length = 32
+        max_target_length = 18
     elif task == "summary":
         prompt = "生成摘要："
         max_target_length = 128
@@ -74,7 +91,9 @@ def generate(light_model, task, text, beams=4):
             early_stopping=True,
         )
 
-    pred = tokenizer.batch_decode(output_ids, skip_special_tokens=True)[0]
+    pred = tokenizer.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
+    if task == "title":
+        pred = clean_title_output(pred, max_chars=18)
     return pred.strip()
 
 
